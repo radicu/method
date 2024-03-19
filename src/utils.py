@@ -86,7 +86,7 @@ class Project:
         if workday :
             self.workday = workday
         else :
-            self.workday = random.choice([15, 31, 63, 127])
+            self.workday = random.choice([31, 63, 127])
         self.project_data = self.get_project_data()
     
     def get_project_data(self):
@@ -130,6 +130,7 @@ class Project:
         task_data['status'] = 'Not Started'
         task_data['duration'] = random.randint(6,12) if isLarge else random.randint(2,4)
         task_data['assignee'] = 1
+        task_data['trade'] = random.randint(3,5) if isLarge else random.randint(1,3)
         
         return task_data 
     
@@ -179,14 +180,14 @@ class Project:
             cursor.execute("SELECT @@IDENTITY AS ProjectID")
             project_id = cursor.fetchone()[0]
             
-            query = "INSERT INTO Task (Name, StartDate, ParentTaskID, Cost, Priority, Progress, ProjectID, Status, Duration, AssigneeID, CreateDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, GETDATE())"
+            query = "INSERT INTO Task (Name, StartDate, ParentTaskID, Cost, Priority, Progress, ProjectID, Status, Duration, AssigneeID, Trade, CreateDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, GETDATE())"
             prev_task = None
             for task in self.project_data['tasks']:
                 if task['priority'] == 'Critical' : 
-                    cursor.execute(query, (task['name'], task['startDate'], None, task['cost'], task['priority'], task['progress'], project_id, task['status'], task['duration'], task['assignee']))
+                    cursor.execute(query, (task['name'], task['startDate'], None, task['cost'], task['priority'], task['progress'], project_id, task['status'], task['duration'], task['assignee'], task['trade']))
                     cursor.commit()
                 else :
-                    cursor.execute(query, (task['name'], task['startDate'], prev_task, task['cost'], task['priority'], task['progress'], project_id, task['status'], task['duration'], task['assignee']))
+                    cursor.execute(query, (task['name'], task['startDate'], prev_task, task['cost'], task['priority'], task['progress'], project_id, task['status'], task['duration'], task['assignee'], task['trade']))
                     cursor.commit()
                 
                 cursor.execute("SELECT @@IDENTITY AS ProjectID")

@@ -88,6 +88,7 @@ CREATE TABLE Task (
     Status NVARCHAR(20) CHECK (Status IN ('Not Started', 'In Progress', 'Delayed', 'Completed')),
     Duration INT,
     AssigneeID INT,
+	Trade INT,
     CreateDate DATE,
     CONSTRAINT FK_Project FOREIGN KEY (ProjectID) REFERENCES Project(ID),
     CONSTRAINT FK_ParentTask FOREIGN KEY (ParentTaskID) REFERENCES Task(ID),
