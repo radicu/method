@@ -1,4 +1,6 @@
 from faker import Faker
+import numpy as np
+import pandas as pd
 import pyodbc
 import random
 from datetime import datetime, timedelta
@@ -19,6 +21,37 @@ def estEndDate(start_date, duration, workday):
             remaining -= 1
     
     return curr_date
+
+def calculate_depth(row, task_detail):
+    depth = 1 
+    parent_id = row['ParentTaskID']
+    while not pd.isna(parent_id):
+        depth += 1
+        parent_id = task_detail.loc[task_detail['ID'] == int(parent_id), 'ParentTaskID'].iloc[0]
+    return depth
+
+def isWeekend(date):
+    return date.weekday() >= 5
+
+def isParentCompleted(task, tasks):
+    if pd.isnull(task['ParentTaskID']):
+        return True
+    else:
+        parent_task = tasks[tasks['ID'] == task['ParentTaskID']].iloc[0]
+        return parent_task['Status'] == 'Completed'
+    
+def delay(task, task_detail, task_today, curr_date):
+    const_depth = -2 if calculate_depth(task, task_detail) >= 8 else 1
+    const_count = -2 if len(task_today) >= 10 else 1
+    const_date = -1 if isWeekend(curr_date) else 0
+    const_status = 2 if task['Priority'] == 'Critical' else 0
+    const_trade = 2 if task['Trade'] >= 3 else -2
+    const_cost = 2 if task['Cost'] >= 800 else -1
+    denom = 8 + const_status + const_trade + const_cost + const_date + const_count + const_depth
+    
+    denom = max(denom,3)
+    
+    return random.randint(1,denom) == 1
 
 class User:
     def __init__(self, count):
@@ -128,7 +161,7 @@ class Project:
         task_data['progress'] = 0
         task_data['project'] = self.name
         task_data['status'] = 'Not Started'
-        task_data['duration'] = random.randint(6,12) if isLarge else random.randint(2,4)
+        task_data['duration'] = random.randint(6,12) if isLarge else random.randint(2,5)
         task_data['assignee'] = 1
         task_data['trade'] = random.randint(3,5) if isLarge else random.randint(1,3)
         

@@ -3,40 +3,6 @@ DROP TABLE IF EXISTS Project;
 DROP TABLE IF EXISTS [User];
 DROP TABLE IF EXISTS Trade;
 DROP TABLE IF EXISTS Role;
-DROP FUNCTION dbo.GetAdjustedEndDate;
-DROP FUNCTION dbo.GetWorkdayPattern;
-
-CREATE FUNCTION dbo.GetAdjustedEndDate (@StartDate DATE, @Duration INT, @Workday INT)
-RETURNS DATE
-AS
-BEGIN
-    DECLARE @EndDate DATE;
-    DECLARE @RemainingDuration INT = @Duration;
-    DECLARE @CurrentDate DATE = @StartDate;
-
-    WHILE @RemainingDuration - 1 > 0
-    BEGIN
-        SET @CurrentDate = DATEADD(DAY, 1, @CurrentDate);
-
-        -- Check if the current date is a workday according to the project's workday pattern
-        IF (@Workday & POWER(2, (DATEPART(WEEKDAY, @CurrentDate) + 5) % 7)) <> 0
-        BEGIN
-            SET @RemainingDuration = @RemainingDuration - 1;
-        END
-    END
-
-    SET @EndDate = @CurrentDate;
-    RETURN @EndDate;
-END;
-
-CREATE FUNCTION dbo.GetWorkdayPattern(@ProjectID INT)
-RETURNS INT
-AS
-BEGIN
-    DECLARE @WorkdayPattern INT;
-    SELECT @WorkdayPattern = Workday FROM Project WHERE ID = @ProjectID;
-    RETURN @WorkdayPattern;
-END;
 
 CREATE TABLE Role (
     ID INT PRIMARY KEY IDENTITY(1,1),
