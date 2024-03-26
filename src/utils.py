@@ -5,8 +5,28 @@ import pyodbc
 import random
 from datetime import datetime, timedelta
 
+weather_all = pd.read_csv('data/weather_all.csv')
+weather_all['datetime'] = pd.to_datetime(weather_all['datetime'])
+weather_all = weather_all.set_index('datetime')
+
 def isWorkday(date, workday):
     return (workday & pow(2, date.weekday())) != 0
+
+def assessWeather(start_date, end_date, workday, weather_data=weather_all):
+    select_weather = weather_data[start_date:end_date]
+    count = 0
+    warning = 0
+    
+    for date, row in select_weather.iterrows():
+        if isWorkday(date, workday) :
+            if row['heavy_weather'] == 1:
+                warning += 1
+            count += 1
+    
+    return warning/count*100
+
+def isHeavyWeather(curr_date, weather_data=weather_all):
+    return weather_data.loc[curr_date]['heavy_weather']
 
 def estEndDate(start_date, duration, workday):
     if isinstance(start_date, str):
@@ -40,7 +60,8 @@ def isParentCompleted(task, tasks):
         parent_task = tasks[tasks['ID'] == task['ParentTaskID']].iloc[0]
         return parent_task['Status'] == 'Completed'
     
-def delay(task, task_detail, task_today, curr_date):
+def delay(task, task_detail, task_today, curr_date, heavy_weather):
+    const_weather = -2 if heavy_weather else 0
     const_depth = -2 if calculate_depth(task, task_detail) >= 8 else 1
     const_count = -2 if len(task_today) >= 10 else 1
     const_date = -1 if isWeekend(curr_date) else 0
