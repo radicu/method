@@ -5,11 +5,16 @@ import os
 from datetime import datetime, timedelta
 import pyodbc
 import random
+from tqdm import tqdm
 
-from utils import isWorkday, estEndDate, isParentCompleted, isWeekend, calculate_depth, delay
+from utils import isWorkday, estEndDate, isParentCompleted, isWeekend, calculate_depth, delay, assessWeather, isHeavyWeather
 
 DATA_DIR = 'data'
 DEFAULT_CONNECTION_STRING = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-2NSE0JH1\\SQLEXPRESS;DATABASE=dummy;Trusted_Connection=yes;'
+
+weather_all = pd.read_csv('data/weather_all.csv')
+weather_all['datetime'] = pd.to_datetime(weather_all['datetime'])
+weather_all = weather_all.set_index('datetime')
 
 def fromcsv(task_path, project_path):
     tasks = pd.read_csv(os.path.join(DATA_DIR, task_path))
@@ -34,8 +39,8 @@ def fromsql(connection_string, save=False):
         print("Error connecting to SQL Server:", e)
         
     if save:
-        tasks.to_csv(os.path.join(DATA_DIR, 'tasks.csv'))
-        projects.to_csv(os.path.join(DATA_DIR, 'projects.csv'))
+        tasks.to_csv(os.path.join(DATA_DIR, 'tasks.csv'),index=False)
+        projects.to_csv(os.path.join(DATA_DIR, 'projects.csv'),index=False)
     
     return tasks, projects
 
@@ -64,7 +69,7 @@ def read_data():
     else:
         print("Invalid data source. Please use 'csv' or 'sql'.")
         sys.exit(1)
-
+    
     return tasks, projects
 
 if __name__ == "__main__":
@@ -75,13 +80,19 @@ if __name__ == "__main__":
     tasks['EndDate'] = pd.to_datetime(tasks['EndDate'])
     tasks['ActualStartDate'] = pd.to_datetime(tasks['ActualStartDate'])
     tasks['ActualEndDate'] = pd.to_datetime(tasks['ActualEndDate'])
+    tasks['WeatherAssessment'] = tasks.apply(lambda x: assessWeather(x['StartDate'],x['EndDate'],projects.loc[projects['ID']==x['ProjectID']]['Workday'].iloc[0], weather_all),axis=1)
+
     
     curr_date = tasks['StartDate'].min()
     task_report = []
     project_report = []
+    
+    total_tasks = len(tasks)
+    pbar = tqdm(total=total_tasks, desc="Progress")
 
     while ~tasks['Status'].eq('Completed').all():
         task_today = tasks[(tasks['StartDate'] <= curr_date) & (tasks['Status']!='Completed')]['ID'].tolist()
+        heavy_weather = isHeavyWeather(curr_date, weather_all)
 
         for idx in task_today:
             task = tasks.loc[tasks['ID']==idx].iloc[0]
@@ -91,7 +102,7 @@ if __name__ == "__main__":
                     task['ActualStartDate'] = str(curr_date)
                     task['Status'] = 'On Progress'
                     
-                if delay(task, tasks, task_today, curr_date):
+                if delay(task, tasks, task_today, curr_date, heavy_weather):
                     task['Progress'] += 0
                 else:
                     task['Progress'] += 1
@@ -99,6 +110,7 @@ if __name__ == "__main__":
                 if task['Progress'] >= task['Duration']:
                     task['ActualEndDate'] = curr_date
                     task['Status'] = 'Completed'
+                    pbar.update(1)
                 
                 if curr_date > task['EndDate'] and task['Status'] == 'On Progress':
                     task['Status'] = 'Delayed'
@@ -119,6 +131,8 @@ if __name__ == "__main__":
                     'Status': task['Status'],
                     'Duration': task['Duration'],
                     'Trade' : task['Trade'],
+                    'IsBadWeather' : heavy_weather,
+                    'WeatherAssessment' : task['WeatherAssessment'],
                     'ActualStartDate': task['ActualStartDate'],
                     'ActualEndDate': task['ActualEndDate']
                 })
@@ -135,7 +149,8 @@ if __name__ == "__main__":
                     'DelayedTask' : len(project_task[(project_task['Status']=='Delayed')]),
                     'CompletedTask' : len(project_task[(project_task['Status']=='Completed')]),
                     'WorkDay' : project_task[(project_task['Status']!='Not Started')]['Progress'].sum(),
-                    'TotalSpent' : project_task[(project_task['Status']=='Completed')]['Cost'].sum()
+                    'TotalSpent' : project_task[(project_task['Status']=='Completed')]['Cost'].sum(),
+                    'IsBadWeather' : heavy_weather
                 })
 
         curr_date += timedelta(days=1)
@@ -149,15 +164,18 @@ if __name__ == "__main__":
     task_ns['Priority'] = task_ns.apply(lambda x: 'Critical' if pd.isna(x['ParentTaskID']) else 'Normal', axis=1)
     task_ns['Progress'] = 0
     task_ns['Status'] = 'Not Started'
+    task_ns['IsBadWeather'] = 0
+    
     task_ns.drop(['ParentTaskID', 'AssigneeID', 'CreateDate'],axis=1, inplace=True)
     task_reports = pd.concat([task_reports, task_ns]).reset_index(drop=True)
 
     project_dates = tasks.groupby('ProjectID').agg({'StartDate': 'min', 'EndDate': 'max', 'ActualStartDate':'min','ActualEndDate':'max'}).reset_index()
+    project_dates['WeatherAssessment'] = project_dates.apply(lambda x: assessWeather(x['StartDate'],x['EndDate'],projects.loc[projects['ID']==x['ProjectID']]['Workday'].iloc[0],weather_all),axis=1)
     project_reports = pd.merge(project_reports, project_dates, on='ProjectID', how='left')
     project_ns = project_reports.copy()
-    project_ns = project_reports.groupby('ProjectID').agg({'TotalTask':'max','StartDate':'max','EndDate':'max','ActualStartDate':'max','ActualEndDate':'max'}).reset_index()
+    project_ns = project_reports.groupby('ProjectID').agg({'TotalTask':'max','StartDate':'max','EndDate':'max','ActualStartDate':'max','ActualEndDate':'max','WeatherAssessment':'mean'}).reset_index()
     project_ns['Date'] = project_ns['ActualStartDate']
-    project_ns[['StartedTask','OnGoingTask','DelayedTask','CompletedTask', 'WorkDay', 'TotalSpent']] = 0
+    project_ns[['StartedTask','OnGoingTask','DelayedTask','CompletedTask', 'WorkDay', 'TotalSpent','IsBadWeather']] = 0
     project_reports = pd.concat([project_reports,project_ns]).reset_index(drop=True)
 
     print(f'Complete all task at {curr_date}')

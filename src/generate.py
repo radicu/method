@@ -11,12 +11,12 @@ DEFAULT_CONNECTION_STRING = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTO
 def project_generator(n, start_date, connection_string):
     start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
     for i in range(1,n+1):
-        offset = random.randint(0,10)
-        task_count = random.randint(10, 50)
-        task_branch = 3 if task_count > 30 else 2
+        offset = random.randint(0,24)
+        task_count = random.randint(20, 50) * 10
+        task_branch = 3 if task_count > 350 else 2
         task_interval = task_count // task_branch + random.randint(1,6)
         
-        project_date = start_date + timedelta(days=offset*7)
+        project_date = start_date + timedelta(weeks=offset*4)
         
         project = Project(f'project{i}', str(project_date), task_count, task_interval)
         print(f'[{i}/{n}] : ', end='')

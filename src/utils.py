@@ -68,7 +68,7 @@ def delay(task, task_detail, task_today, curr_date, heavy_weather):
     const_status = 2 if task['Priority'] == 'Critical' else 0
     const_trade = 2 if task['Trade'] >= 3 else -2
     const_cost = 2 if task['Cost'] >= 800 else -1
-    denom = 8 + const_status + const_trade + const_cost + const_date + const_count + const_depth
+    denom = 8 + const_status + const_trade + const_cost + const_date + const_count + const_depth + const_weather
     
     denom = max(denom,3)
     
@@ -182,9 +182,9 @@ class Project:
         task_data['progress'] = 0
         task_data['project'] = self.name
         task_data['status'] = 'Not Started'
-        task_data['duration'] = random.randint(6,12) if isLarge else random.randint(2,5)
+        task_data['duration'] = random.randint(8,25) if isLarge else random.randint(2,8)
         task_data['assignee'] = 1
-        task_data['trade'] = random.randint(3,5) if isLarge else random.randint(1,3)
+        task_data['trade'] = random.randint(4,7) if isLarge else random.randint(1,4)
         
         return task_data 
     
