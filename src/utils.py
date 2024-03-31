@@ -184,7 +184,7 @@ class Project:
         task_data['progress'] = 0
         task_data['project'] = self.name
         task_data['status'] = 'Not Started'
-        task_data['duration'] = random.randint(8,25) if isLarge else random.randint(2,8)
+        task_data['duration'] = random.randint(8,20) if isLarge else random.randint(2,8)
         task_data['assignee'] = 1
         task_data['trade'] = random.randint(4,7) if isLarge else random.randint(1,4)
         
@@ -204,6 +204,24 @@ class Project:
         while self.task_count > 0 :
             if curr_count == 0:
                 task = self.generate_task_data(str(curr_date), 'l')
+            elif curr_count > 30 :
+                if random.randint(1, 50) == 1 and self.task_count>40:
+                    task = self.generate_task_data(str(curr_date), 'l')
+                    curr_count = 0
+                else :
+                    task = self.generate_task_data(str(curr_date), 's')
+            elif curr_count > 50 :
+                if random.randint(1, 25) == 1 and self.task_count>40:
+                    task = self.generate_task_data(str(curr_date), 'l')
+                    curr_count = 0
+                else :
+                    task = self.generate_task_data(str(curr_date), 's')
+            elif curr_count > 70:
+                if random.randint(1, 10) == 1 and self.task_count>40:
+                    task = self.generate_task_data(str(curr_date), 'l')
+                    curr_count = 0
+                else :
+                    task = self.generate_task_data(str(curr_date), 's')
             else :
                 task = self.generate_task_data(str(curr_date), 's')
             
@@ -214,7 +232,7 @@ class Project:
             
             if curr_count%self.task_interval == 0:
                 curr_count = 0
-                curr_date = datetime.strptime(self.start_date, '%Y-%m-%d').date() + timedelta(days=random.randint(0,3))
+                curr_date = datetime.strptime(self.start_date, '%Y-%m-%d').date() + timedelta(days=random.randint(0,7))
         
         return task_list
     
