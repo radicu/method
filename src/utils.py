@@ -5,15 +5,16 @@ import pyodbc
 import random
 from datetime import datetime, timedelta
 
-weather_all = pd.read_csv('data/weather_all.csv')
+weather_all = pd.read_csv('data/weather/weather_all.csv')
 weather_all['datetime'] = pd.to_datetime(weather_all['datetime'])
 weather_all = weather_all.set_index('datetime')
 
 def isWorkday(date, workday):
     return (workday & pow(2, date.weekday())) != 0
 
-def assessWeather(start_date, end_date, workday, weather_data=weather_all):
-    select_weather = weather_data[start_date:end_date]
+def assessWeather(start_date, workday, weather_data=weather_all):
+    end_date = start_date + timedelta(days=30)
+    select_weather = weather_data[start_date:str(end_date)]
     count = 0
     warning = 0
     
@@ -42,13 +43,15 @@ def estEndDate(start_date, duration, workday):
     
     return curr_date
 
-def calculate_depth(row, task_detail):
-    depth = 1 
-    parent_id = row['ParentTaskID']
-    while not pd.isna(parent_id):
-        depth += 1
-        parent_id = task_detail.loc[task_detail['ID'] == int(parent_id), 'ParentTaskID'].iloc[0]
-    return depth
+def calcLength(series) :
+    task_list = [0]*len(series)
+    for i, pid in enumerate(series):
+        if pd.isna(pid):
+            task_list[i] = 0
+        else :
+            task_list[i] = task_list[pid-1]+1
+    
+    return task_list
 
 def isWeekend(date):
     return date.weekday() >= 5
@@ -60,15 +63,14 @@ def isParentCompleted(task, tasks):
         parent_task = tasks[tasks['ID'] == task['ParentTaskID']].iloc[0]
         return parent_task['Status'] == 'Completed'
     
-def delay(task, task_detail, task_today, curr_date, heavy_weather):
+def delay(task, task_today, curr_date, heavy_weather):
     const_weather = -2 if heavy_weather else 0
-    const_depth = -2 if calculate_depth(task, task_detail) >= 8 else 1
-    const_count = -2 if len(task_today) >= 10 else 1
+    const_count = -2 if len(task_today) >= 10 else 0
     const_date = -1 if isWeekend(curr_date) else 0
     const_status = 2 if task['Priority'] == 'Critical' else 0
-    const_trade = 2 if task['Trade'] >= 3 else -2
-    const_cost = 2 if task['Cost'] >= 800 else -1
-    denom = 8 + const_status + const_trade + const_cost + const_date + const_count + const_depth + const_weather
+    const_trade = 1 if task['Trade'] >= 3 else -1
+    const_cost = 1 if task['Cost'] >= 800 else -1
+    denom = 8 + const_status + const_trade + const_cost + const_date + const_count + const_weather
     
     denom = max(denom,3)
     
