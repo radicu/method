@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS Task;
 DROP TABLE IF EXISTS Project;
 DROP TABLE IF EXISTS [User];
 DROP TABLE IF EXISTS Trade;
+DROP TABLE IF EXISTS Weather;
 DROP TABLE IF EXISTS Role;
 
 CREATE TABLE Role (
@@ -57,6 +58,15 @@ CREATE TABLE Task (
     CONSTRAINT FK_Project FOREIGN KEY (ProjectID) REFERENCES Project(ID),
     CONSTRAINT FK_ParentTask FOREIGN KEY (ParentTaskID) REFERENCES Task(ID),
     CONSTRAINT FK_Assignee_Task FOREIGN KEY (AssigneeID) REFERENCES [User](ID)
+);
+
+CREATE TABLE Weather (
+    Date DATE,
+    Hour FLOAT,
+    Temperature FLOAT,
+    RainProb FLOAT,
+    WindSpeed FLOAT,
+    HeavyWeather INT
 );
 
 INSERT INTO Role (Name, CreateDate)

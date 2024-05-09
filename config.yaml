@@ -1,0 +1,16 @@
+API_KEY: "K7GqaNokJvG56sWKLiPa8PenuD2uFtkq"
+SERVER: "LAPTOP-2NSE0JH1\\SQLEXPRESS"
+DATABASE: "dummy"
+
+RESTART_SCRIPT: "src/restartDB.sql"
+
+WEATHER_PATH: "data/weather/tomorrow.csv"
+WEATHER_HISTORICAL_PATH: "data/weather/weather_historical.csv"
+WEATHER_TABLE: "Weather"
+
+PROJECT_COUNT: 10
+PROJECT_START_DATE: "2020-01-01"
+
+DATA_DIR: "data"
+
+SIMULATION_SOURCE: "csv"

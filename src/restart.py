@@ -1,12 +1,17 @@
-import sys
 import pyodbc
-from utils import User
+import pandas as pd
 
-DEFAULT_CONNECTION_STRING = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-2NSE0JH1\\SQLEXPRESS;DATABASE=dummy;Trusted_Connection=yes;'
+from utils import loadConfig
+from user import User
 
-def execute_sql_script(connection_string, script_file):
+def execute_sql_script(config):
+    server = config["SERVER"]
+    database = config["DATABASE"]
+    script_file = config["RESTART_SCRIPT"]
+
+    conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
     try:
-        conn = pyodbc.connect(connection_string)
+        conn = pyodbc.connect(conn_str)
         cursor = conn.cursor()
 
         with open(script_file, 'r') as file:
@@ -22,18 +27,64 @@ def execute_sql_script(connection_string, script_file):
     finally:
         if conn:
             conn.close()
+            
+def df_to_sqlserver(df, config):
+    server = config["SERVER"]
+    database = config["DATABASE"]
+    table_name = config["WEATHER_TABLE"]
+
+    conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
+
+    try:
+        conn = pyodbc.connect(conn_str)
+        cursor = conn.cursor()
+        
+        cursor.execute(f"SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = ?", (table_name,))
+        table_exists = cursor.fetchone()[0] > 0
+
+        if not table_exists:
+            raise ValueError(f"Table '{table_name}' does not exist. Aborting the operation.")
+        
+        for _, data in df.iterrows():
+            cursor.execute(f"SELECT COUNT(*) FROM {table_name} WHERE Date = ? AND Hour = ?", (data['Date'],data['Hour']))
+            date_exists = cursor.fetchone()[0] > 0
+            
+            if date_exists:
+                query = f"""
+                    UPDATE {table_name}
+                    SET Temperature = ?,
+                        RainProb = ?,
+                        WindSpeed = ?,
+                        HeavyWeather = ?
+                    WHERE Date = ? and Hour = ?
+                """
+                cursor.execute(query, (data['Temperature'], data['RainProb'], data['WindSpeed'], data['HeavyWeather'], data['Date'], data['Hour']))
+            else:
+                query = f"""
+                    INSERT INTO {table_name} (Date, Hour, Temperature, RainProb, WindSpeed, HeavyWeather)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                """
+                cursor.execute(query, (data['Date'], data['Hour'], data['Temperature'], data['RainProb'], data['WindSpeed'], data['HeavyWeather']))
+            
+            conn.commit()
+        
+        print("All weather data successfully moved to the database.")
+        
+        conn.close()
+
+    except pyodbc.Error as e:
+        print("Error connecting to SQL Server:", e)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python src/restart.py <script_file> [<connection_string>]")
-        sys.exit(1)
+    config = loadConfig('config.yaml')
+    weather_path = config["WEATHER_PATH"]
 
-    script_file = sys.argv[1]
-    connection_string = sys.argv[2] if len(sys.argv) >= 3 else DEFAULT_CONNECTION_STRING
-
-    execute_sql_script(connection_string, script_file)
+    execute_sql_script(config)
+    
+    df = pd.read_csv(weather_path)
+    df_to_sqlserver(df,config)
     
     user = User(50)
-    user.tosql(connection_string)    
+    user.tosql()    
     
     

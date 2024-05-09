@@ -93,6 +93,15 @@ CREATE TABLE Task (
     CONSTRAINT FK_Assignee_Task FOREIGN KEY (AssigneeID) REFERENCES [User](ID)
 );
 
+CREATE TABLE Weather (
+    Date DATE,
+    Hour FLOAT,
+    Temperature FLOAT,
+    RainProb FLOAT,
+    WindSpeed FLOAT,
+    HeavyWeather INT
+);
+
 INSERT INTO Role (Name, CreateDate)
 VALUES 
     ('Head Contractor', GETDATE()),
