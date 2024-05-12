@@ -76,15 +76,16 @@ def simulate_one_day(curr_date, tasks, projects, task_report, project_report):
     for idx in task_today:
         task = tasks.loc[tasks['ID']==idx].iloc[0]
         workday = projects.loc[projects['ID'] == task['ProjectID']].iloc[0]['Workday']
-        if isParentCompleted(task, tasks) and isWorkday(curr_date, workday):
+        if isParentCompleted(task, tasks):
             if task['Status'] == 'Not Started':
                 task['ActualStartDate'] = str(curr_date)
                 task['Status'] = 'On Progress'
                 
-            if delay(task, task_today, curr_date, heavy_weather):
-                task['Progress'] += 0
-            else:
-                task['Progress'] += 1
+            if isWorkday(curr_date, workday):
+                if delay(task, task_today, curr_date, heavy_weather):
+                    task['Progress'] += 0
+                else:
+                    task['Progress'] += 1
                 
             if task['Progress'] >= task['Duration']:
                 task['ActualEndDate'] = curr_date
@@ -113,6 +114,7 @@ def simulate_one_day(curr_date, tasks, projects, task_report, project_report):
                 'TaskLength' : task['TaskLength'],
                 'IsBadWeather' : heavy_weather,
                 'WeatherAssessment' : task['WeatherAssessment'],
+                'WorkDay' : workday,
                 'ActualStartDate': task['ActualStartDate'],
                 'ActualEndDate': task['ActualEndDate']
             })
@@ -142,6 +144,7 @@ def save_report(config, task_reports, project_reports):
     
     task_reports.to_csv(os.path.join(dir_path, 'task_report.csv'),index=False)
     project_reports.to_csv(os.path.join(dir_path, 'project_report.csv'),index=False)
+    print(f'Simulation result saved at {dir_path}')
     
     return
 
