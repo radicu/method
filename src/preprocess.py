@@ -36,6 +36,9 @@ def feature_engineering_task(df):
     status_ohe = pd.get_dummies(df['Status'], prefix='Is').astype(int)
     df = pd.concat([df, status_ohe], axis=1)
     df.drop(columns='Status', inplace=True)
+    
+    df = df.rename({'Trade':'Worker'},axis=1)
+    df = df.drop(columns=['TaskLength','Weekend','DayCount','TaskToday','Is_Completed','Is_On Progress'])
     return df
 
 def preprocess_project(df):
