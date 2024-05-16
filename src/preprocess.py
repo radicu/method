@@ -38,7 +38,7 @@ def feature_engineering_task(df):
     df.drop(columns='Status', inplace=True)
     
     df = df.rename({'Trade':'Worker'},axis=1)
-    df = df.drop(columns=['TaskLength','Weekend','DayCount','TaskToday','Is_Completed','Is_On Progress'])
+    df = df.drop(columns=['Weekend','TaskToday','Is_Completed','Is_On Progress'])
     return df
 
 def preprocess_project(df):
