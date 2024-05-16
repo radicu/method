@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import shap
 import mpld3
 import streamlit.components.v1 as components
 import os
@@ -31,6 +32,8 @@ def train_model(dataframes, target):
 
     X = tasks_df.copy()
     y = X.pop(target)
+    
+    cols = X.columns
 
     # Split the data
     project_ids = tasks['ProjectID'].unique().tolist()
@@ -54,7 +57,10 @@ def train_model(dataframes, target):
 
     mae_train = mean_absolute_error(y_train, y_train_pred)
     mae_val = mean_absolute_error(y_val, y_val_pred)
-    return model, mae_train, mae_val, test_idx
+    
+    explainer = shap.Explainer(model,feature_names=cols)
+    
+    return model, explainer, mae_train, mae_val, test_idx
 
 def process_input(dir_name):
     data_dir = os.path.join('data', dir_name)
@@ -122,6 +128,22 @@ def plot_project_progression(data):
     ax.set_title('Progress Over Time')
     ax.legend()
     return fig
+
+def predict_and_plot(model, explainer, data):
+    ground_truth = data['TaskDelay']
+    data = data.drop('TaskDelay')
+    data_np = data.to_numpy().reshape(1, -1)
+    data_pred = model.predict(data_np)
+    st.write(f'The selected tasks is estimated to be delayed for **{data_pred[0]:.2f} days**, true delay is **{ground_truth} days**')
+    
+    shap_values = explainer(data_np)
+    fig, ax = plt.subplots()
+    shap.waterfall_plot(shap_values[0])
+
+    # Display the plot in Streamlit
+    with st.expander("Feature SHAP Score"):
+        st.write('The SHAP Score determines how each feature affect the prediction result.')
+        st.pyplot(fig)
     
 def display(data):
     with st.expander("About the Model"):
@@ -162,10 +184,7 @@ def display(data):
         
         data_last_index = task_select_data.iloc[-1]['index']
         data_last = pred_data.iloc[data_last_index]
-        data_ground_truth = data_last['TaskDelay']
-        data_last = data_last.drop('TaskDelay')
-        data_last_pred = data['model'].predict(data_last.to_numpy().reshape(1, -1))
-        st.write(f'The selected tasks is estimated to be delayed for **{data_last_pred[0]:.2f} days**, true delay is **{data_ground_truth} days**')
+        predict_and_plot(data['model'], data['explainer'], data_last)
         
         fig_task = plot_task_progression(task_select_data)
         st.pyplot(fig_task)
@@ -185,13 +204,14 @@ def main():
         dataframes = process_input(dir_name)
         if dataframes:
             st.write("Training model...")
-            model, mae_train, mae_val, test_idx = train_model(dataframes, 'TaskDelay')
+            model, explainer, mae_train, mae_val, test_idx = train_model(dataframes, 'TaskDelay')
             if model is not None:
                 st.write("Model training complete!")
                 test_data = dataframes['task_data.csv'][dataframes['task_data.csv'].index.isin(test_idx)].reset_index(drop=True)
                 pred_data = dataframes['task_train.csv'][dataframes['task_train.csv'].index.isin(test_idx)].reset_index(drop=True)
                 st.session_state.results[dir_name] = {
                     'model' : model,
+                    'explainer' : explainer,
                     'dataframes' : dataframes,
                     'mae_train' : mae_train,
                     'mae_val' : mae_val,
