@@ -86,8 +86,9 @@ For permission and transfer access to the GitHub repository, contact: fadhilumar
 - Adjust Feature Engineering
 - Use new dummy data inside data/New_Dummy folder
 - To pre-process & train the data please open **Tinkering_model.ipynb**
-- For Model pipeline, please check **Method_Pipeline.png**
 - For Project progress, please check Method_progress ppt file
+
+![Method Pipline](images/Method_Pipeline.png)
 
 ## Database Environment Adjustment
 *Important: For my case i used local SQL (SQL Workbench) for stoing data, so i changed some syntaxes. For other connections & platform, please adjust accordingly.*
