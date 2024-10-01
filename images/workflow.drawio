@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" modified="2024-05-21T12:47:27.285Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0" etag="Oz0XT907P9GOId17TD9-" version="24.3.0" type="device">
+  <diagram name="Page-1" id="C8dwOl-uloWVDl_tzbud">
+    <mxGraphModel dx="1002" dy="569" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-2" target="SibHRYQy1KY8G4qpYIpA-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-2" target="SibHRYQy1KY8G4qpYIpA-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-2" value="&lt;b style=&quot;font-size: 10px;&quot;&gt;Start&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-3" target="SibHRYQy1KY8G4qpYIpA-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-3" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;font-size: 10px;&quot;&gt;config.yaml&lt;/b&gt;&lt;br style=&quot;font-size: 10px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;config file for&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;the simulation&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="200" y="160" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-4" target="SibHRYQy1KY8G4qpYIpA-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-4" value="&lt;b style=&quot;font-size: 10px;&quot;&gt;Generate.py&lt;/b&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;generate dummy&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;data for the project&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="360" y="160" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-7" target="SibHRYQy1KY8G4qpYIpA-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-7" value="&lt;b style=&quot;font-size: 10px;&quot;&gt;SQL Server&amp;nbsp;&lt;/b&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;font-size: 10px;&quot;&gt;Database&lt;/b&gt;&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="520" y="160" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-8" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;font-size: 10px;&quot;&gt;Init.sql&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;initialize sql server database for the simulation&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="520" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-8" target="SibHRYQy1KY8G4qpYIpA-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-4" target="SibHRYQy1KY8G4qpYIpA-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-14" target="SibHRYQy1KY8G4qpYIpA-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-14" target="SibHRYQy1KY8G4qpYIpA-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-14" value="&lt;b style=&quot;font-size: 10px;&quot;&gt;Simulate.py&lt;/b&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;Simulate the project progression algorithm&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="360" y="280" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-17" target="SibHRYQy1KY8G4qpYIpA-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="260" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-17" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;font-size: 10px;&quot;&gt;project.csv&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;font-size: 10px;&quot;&gt;task.csv&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b&gt;project_report.csv&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;font-size: 10px;&quot;&gt;task_report.csv&lt;/b&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="200" y="280" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-19" target="SibHRYQy1KY8G4qpYIpA-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SibHRYQy1KY8G4qpYIpA-19" target="SibHRYQy1KY8G4qpYIpA-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-19" value="&lt;b&gt;Preprocess.py&lt;/b&gt;&lt;div&gt;Run the preprocessing step for model training&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="360" y="400" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-23" value="&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b&gt;task_train.csv&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b&gt;task_data.csv&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b&gt;project_train.csv&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&lt;b&gt;project_data.csv&lt;/b&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="520" y="400" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SibHRYQy1KY8G4qpYIpA-25" value="&lt;b&gt;End&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="360" y="520" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
