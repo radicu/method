@@ -89,6 +89,9 @@ For permission and transfer access to the GitHub repository, contact: fadhilumar
 - For Model pipeline, please check **Method_Pipeline.png**
 - For Project progress, please check Method_progress ppt file
 
+## Database Environment Adjustment
+*Important: For my case i used local SQL (SQL Workbench) for stoing data, so i changed some syntaxes. For other connections & platform, please adjust accordingly.*
+
 ## Docker Endpoint image
 - Please create virtual environment first, please use **Python 3.12++**
 - Copy **endpoint2.py**, **utility.py**, **Dockerfile** (you can modify this fle however you want), **requirements_env.txt** , **data_env** folder & **model** folder to your virtual environment folder
