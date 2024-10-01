@@ -81,3 +81,18 @@ The workday pattern is an int denoting when the project will work in a week usin
 
 ## Contact
 For permission and transfer access to the GitHub repository, contact: fadhilumar.af@gmail.com
+
+## June~September Progress
+- Adjust Feature Engineering
+- Use new dummy data inside data/New_Dummy folder
+- To pre-process & train the data please open **Tinkering_model.ipynb**
+- For Model pipeline, please check **Method_Pipeline.png**
+- For Project progress, please checl Method_progress ppt file
+
+## Docker Endpoint image
+- Please create virtual environment first, please use **Python 3.12++**
+- Copy **endpoint2.py**, **utility.py**, **Dockerfile** (you can modify this fle however you want), **requirements_env.txt** ,**data_env** folder & **model** folder to your virtual environment folder
+- Install python dependencies from **requirements_env.txt** inside your vitual environment
+- Run Docker build to create the image to be deployed
+- To test the endpoint please use **endpoint_test.ipynb** file
+
