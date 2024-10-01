@@ -88,6 +88,7 @@ CREATE TABLE Task (
     AssigneeID INT,
 	Trade INT,
     CreateDate DATE,
+    WorkerScore INT,
     CONSTRAINT FK_Project FOREIGN KEY (ProjectID) REFERENCES Project(ID),
     CONSTRAINT FK_ParentTask FOREIGN KEY (ParentTaskID) REFERENCES Task(ID),
     CONSTRAINT FK_Assignee_Task FOREIGN KEY (AssigneeID) REFERENCES [User](ID)

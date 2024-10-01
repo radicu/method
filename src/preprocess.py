@@ -32,12 +32,11 @@ def preprocess_task(df):
     return df
 
 def feature_engineering_task(df):
-    df['Priority'] = df['Priority'].apply(lambda x: 1 if x=='Critical' else 0)
+    # df['Priority'] = df['Priority'].apply(lambda x: 1 if x=='Critical' else 0)
     status_ohe = pd.get_dummies(df['Status'], prefix='Is').astype(int)
     df = pd.concat([df, status_ohe], axis=1)
     df.drop(columns='Status', inplace=True)
     
-    df = df.rename({'Trade':'Worker'},axis=1)
     df = df.drop(columns=['Weekend','TaskToday','Is_Completed','Is_On Progress'])
     return df
 
@@ -60,7 +59,7 @@ if __name__ == "__main__":
     tasks, tasks_detail, projects, projects_details = read_data(config)
     
     tasks = preprocess_task(tasks)
-    tasks_df =  tasks.drop(columns=['Date','ID','ProjectID','Name','StartDate','EndDate','ActualStartDate','ActualEndDate','WorkDay'])
+    tasks_df =  tasks.drop(columns=['Date','ID','ProjectID','Name','StartDate','EndDate','DayCount', 'IsBadWeather', 'Priority', 'ActualStartDate','ActualEndDate','WorkDay'])
     tasks_df = feature_engineering_task(tasks_df)
     
     projects = preprocess_project(projects)

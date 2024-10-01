@@ -1,5 +1,5 @@
 from faker import Faker
-import pyodbc
+import mysql.connector
 import random
 from utils import loadConfig
 
@@ -29,20 +29,25 @@ class User:
         return user_list
     
     def tosql(self):
-        """Insert user data into SQL database using pyodbc.
-
-        Args:
-            conn_str (string): a string for connection, make sure to test if its correct
+        """Insert user data into MySQL database using mysql.connector.
         """
         server = self.config["SERVER"]
         database = self.config["DATABASE"]
-        conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
+        user = self.config["USERNAME"]
+        password = self.config["PASSWORD"]
+        port = self.config["PORT"]
         
         try:
-            conn = pyodbc.connect(conn_str)
+            conn = mysql.connector.connect(
+                host=server,
+                port=port,
+                database=database,
+                user=user,
+                password=password
+            )
 
             cursor = conn.cursor()
-            query = "INSERT INTO [user] (Name, Email, TradeId, RoleId, CreateDate) VALUES (?, ?, ?, ?, GETDATE())"
+            query = "INSERT INTO User (Name, Email, TradeId, RoleId, CreateDate) VALUES (%s, %s, %s, %s, NOW())"
             for user in self.user_data:
                 cursor.execute(query, (user['name'], user['email'], user['trade'], user['role']))
                 
@@ -52,5 +57,5 @@ class User:
 
             conn.close()
 
-        except pyodbc.Error as e:
-            print("Error connecting to SQL Server:", e)
+        except mysql.connector.Error as e:
+            print("Error connecting to MySQL:", e)

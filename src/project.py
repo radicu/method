@@ -1,5 +1,5 @@
 from faker import Faker
-import pyodbc
+import mysql.connector
 import random
 from datetime import datetime, timedelta
 from utils import loadConfig, estEndDate
@@ -68,7 +68,8 @@ class Project:
         task_data['status'] = 'Not Started'
         task_data['duration'] = random.randint(8,20) if isLarge else random.randint(2,8)
         task_data['assignee'] = 1
-        task_data['trade'] = random.randint(4,7) if isLarge else random.randint(1,4)
+        task_data['trade'] = random.randint(22,37) if isLarge else random.randint(1,22)
+        task_data['workerScore'] = random.randint(30, 100)
         
         return task_data 
     
@@ -119,45 +120,48 @@ class Project:
         return task_list
     
     def tosql(self):
-        """ Insert project data into SQL database using pyodbc.
+        """ Insert project data into MySQL database using mysql.connector.
 
         Args:
             conn_str (string): a string for connection, make sure to test if its correct
         """
         server = self.config["SERVER"]
         database = self.config["DATABASE"]
-        conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
-        
-        try:
-            conn = pyodbc.connect(conn_str)
+        user = self.config["USERNAME"]
+        password = self.config["PASSWORD"]
+        port = self.config["PORT"]
 
+        try:
+            conn = mysql.connector.connect(
+                host=server,
+                port=port,
+                database=database,
+                user=user,
+                password=password
+            )
             cursor = conn.cursor()
             
-            query = "INSERT INTO Project (Name, Status, Workday, AssigneeID, CreateDate) VALUES (?, ?, ?, ?, GETDATE())"
-            cursor.execute(query, (self.project_data['name'], self.project_data['status'], self.project_data['workday'], self.project_data['assignee']))   
-            cursor.commit()
+            query = "INSERT INTO Project (Name, Status, Workday, AssigneeID, CreateDate) VALUES (%s, %s, %s, %s, NOW())"
+            cursor.execute(query, (self.project_data['name'], self.project_data['status'], self.project_data['workday'], self.project_data['assignee']))
+            conn.commit()
             
-            cursor.execute("SELECT @@IDENTITY AS ProjectID")
-            project_id = cursor.fetchone()[0]
+            project_id = cursor.lastrowid
             
-            query = "INSERT INTO Task (Name, StartDate, ParentTaskID, Cost, Priority, Progress, ProjectID, Status, Duration, AssigneeID, Trade, CreateDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, GETDATE())"
+            query = "INSERT INTO Task (Name, StartDate, ParentTaskID, Cost, Priority, Progress, ProjectID, Status, Duration, AssigneeID, Trade, CreateDate, WorkerScore) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW() ,%s)"
             prev_task = None
             for task in self.project_data['tasks']:
                 if task['priority'] == 'Critical' : 
-                    cursor.execute(query, (task['name'], task['startDate'], None, task['cost'], task['priority'], task['progress'], project_id, task['status'], task['duration'], task['assignee'], task['trade']))
-                    cursor.commit()
+                    cursor.execute(query, (task['name'], task['startDate'], None, task['cost'], task['priority'], task['progress'], project_id, task['status'], task['duration'], task['assignee'], task['trade'], task['workerScore']))
+                    conn.commit()
                 else :
-                    cursor.execute(query, (task['name'], task['startDate'], prev_task, task['cost'], task['priority'], task['progress'], project_id, task['status'], task['duration'], task['assignee'], task['trade']))
-                    cursor.commit()
+                    cursor.execute(query, (task['name'], task['startDate'], prev_task, task['cost'], task['priority'], task['progress'], project_id, task['status'], task['duration'], task['assignee'], task['trade'], task['workerScore']))
+                    conn.commit()
                 
-                cursor.execute("SELECT @@IDENTITY AS ProjectID")
-                prev_task = cursor.fetchone()[0]
-            
-            cursor.commit()
+                prev_task = cursor.lastrowid
             
             print("Project and tasks inserted successfully.")
 
             conn.close()
 
-        except pyodbc.Error as e:
-            print("Error connecting to SQL Server:", e)
+        except mysql.connector.Error as e:
+            print("Error connecting to MySQL:", e)
