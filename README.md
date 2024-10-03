@@ -103,4 +103,5 @@ For permission and transfer access to the GitHub repository, contact: fadhilumar
 - Install python dependencies from **requirements_env.txt** inside your vitual environment
 - Run Docker build to create the image to be deployed
 - To test the endpoint please use **endpoint_test.ipynb** file
+- Added swagger API documentation
 
