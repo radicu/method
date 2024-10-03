@@ -76,7 +76,7 @@ def required_column_task():
      
     return required_columns
 
-def reuquired_column_project():
+def required_column_project():
 
     required_columns = [
             'Id',

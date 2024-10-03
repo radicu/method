@@ -7,3 +7,5 @@ matplotlib
 scikit-learn
 tensorflow
 scikeras
+flask-restx
+flask-swagger-ui

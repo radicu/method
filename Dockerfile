@@ -12,7 +12,7 @@ COPY ./utility.py /src/app
 
 COPY ./requirements.txt /src
 
-RUN pip install -r /src/requirements_venv.txt
+RUN pip install -r /src/requirements.txt
 
 # ENV PYTHONPATH
 
