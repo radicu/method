@@ -84,9 +84,9 @@ For permission and transfer access to the GitHub repository, contact: fadhilumar
 
 ## June~September Progress
 - Adjust Feature Engineering
-- Use new dummy data inside data/New_Dummy folder
+- Use new dummy data inside **data/New_Dummy folder**
 - To pre-process & train the data please open **Tinkering_model.ipynb**
-- For Project progress, please check Method_progress ppt file
+- For Project progress, please check **Method_progress.pptx** file
 - Latest prediction model trained from dataset **/data/New_Dummy/ Project Dummy Data.xlsx & Project Dummy Data - Progressive.xlsx**
 - Latest prediction model stored in **/model** folder with code **V6 & V7**
 
