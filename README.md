@@ -88,7 +88,7 @@ For permission and transfer access to the GitHub repository, contact: fadhilumar
 - To pre-process & train the data please open **Tinkering_model.ipynb**
 - For Project progress, please check Method_progress ppt file
 - Latest prediction model trained from dataset **/data/New_Dummy/ Project Dummy Data.xlsx & Project Dummy Data - Progressive.xlsx**
-- Latest prediction model stored in **/mode** folder with code **V6 & V7**
+- Latest prediction model stored in **/model** folder with code **V6 & V7**
 
 ## Method Pipeline
 
