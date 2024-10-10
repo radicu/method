@@ -107,4 +107,5 @@ For permission and transfer access to the GitHub repository, contact: fadhilumar
 - Run Docker build to create the image to be deployed
 - To test the endpoint please use **endpoint_test.ipynb** file
 - Added swagger API documentation
+- My current method-endpoint docker image was uploaded on DockerHub radicu/endpoint-test-method2:latest
 
