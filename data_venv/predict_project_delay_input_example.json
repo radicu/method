@@ -1,0 +1,223 @@
+
+[
+    {
+        "Task_Id": 1,
+        "Predecessor": 0,
+        "Successor": [
+            2,
+            3
+        ],
+        "Duration": 11,
+        "Trade": 26,
+        "Progress": 87,
+        "WorkerScore": 16,
+        "Temperature": 22.32948004,
+        "RainProb": 95.67998155,
+        "WindSpeed": 20.78298399
+    },
+    {
+        "Task_Id": 2,
+        "Predecessor": 1,
+        "Successor": [
+            4
+        ],
+        "Duration": 1,
+        "Trade": 28,
+        "Progress": 58,
+        "WorkerScore": 18,
+        "Temperature": 32.22629093,
+        "RainProb": 50.04011457,
+        "WindSpeed": 16.4696271
+    },
+    {
+        "Task_Id": 3,
+        "Predecessor": 1,
+        "Successor": [
+            5
+        ],
+        "Duration": 23,
+        "Trade": 5,
+        "Progress": 66,
+        "WorkerScore": 25,
+        "Temperature": 32.21319467,
+        "RainProb": 43.2729136,
+        "WindSpeed": 23.1112377
+    },
+    {
+        "Task_Id": 4,
+        "Predecessor": 2,
+        "Successor": [
+            6
+        ],
+        "Duration": 1,
+        "Trade": 8,
+        "Progress": 74,
+        "WorkerScore": 47,
+        "Temperature": 21.98029532,
+        "RainProb": 45.76996052,
+        "WindSpeed": 21.35954707
+    },
+    {
+        "Task_Id": 5,
+        "Predecessor": 3,
+        "Successor": [
+            6
+        ],
+        "Duration": 26,
+        "Trade": 25,
+        "Progress": 44,
+        "WorkerScore": 51,
+        "Temperature": 30.46461602,
+        "RainProb": 20.8882724,
+        "WindSpeed": 18.88165706
+    },
+    {
+        "Task_Id": 6,
+        "Predecessor": [
+            4,
+            5
+        ],
+        "Successor": [
+            8,
+            9
+        ],
+        "Duration": 22,
+        "Trade": 27,
+        "Progress": 3,
+        "WorkerScore": 95,
+        "Temperature": 23.32994296,
+        "RainProb": 36.87071709,
+        "WindSpeed": 21.74130296
+    },
+    {
+        "Task_Id": 7,
+        "Predecessor": 0,
+        "Successor": [
+            0
+        ],
+        "Duration": 8,
+        "Trade": 23,
+        "Progress": 25,
+        "WorkerScore": 69,
+        "Temperature": 44.2470563,
+        "RainProb": 36.9813256,
+        "WindSpeed": 17.59904979
+    },
+    {
+        "Task_Id": 8,
+        "Predecessor": 6,
+        "Successor": [
+            10,
+            11,
+            12
+        ],
+        "Duration": 0,
+        "Trade": 30,
+        "Progress": 26,
+        "WorkerScore": 54,
+        "Temperature": 48.43064078,
+        "RainProb": 5.235502019,
+        "WindSpeed": 18.45192208
+    },
+    {
+        "Task_Id": 9,
+        "Predecessor": 6,
+        "Successor": [
+            0
+        ],
+        "Duration": 7,
+        "Trade": 23,
+        "Progress": 45,
+        "WorkerScore": 99,
+        "Temperature": 22.16949426,
+        "RainProb": 76.75676285,
+        "WindSpeed": 24.17485843
+    },
+    {
+        "Task_Id": 10,
+        "Predecessor": 8,
+        "Successor": [
+            13
+        ],
+        "Duration": 22,
+        "Trade": 20,
+        "Progress": 63,
+        "WorkerScore": 74,
+        "Temperature": 48.65345622,
+        "RainProb": 41.65044319,
+        "WindSpeed": 17.90504506
+    },
+    {
+        "Task_Id": 11,
+        "Predecessor": 8,
+        "Successor": [
+            14
+        ],
+        "Duration": 5,
+        "Trade": 18,
+        "Progress": 90,
+        "WorkerScore": 32,
+        "Temperature": 35.67729798,
+        "RainProb": 82.21798868,
+        "WindSpeed": 19.69988268
+    },
+    {
+        "Task_Id": 12,
+        "Predecessor": 8,
+        "Successor": [
+            15
+        ],
+        "Duration": 5,
+        "Trade": 18,
+        "Progress": 50,
+        "WorkerScore": 61,
+        "Temperature": 28.98697034,
+        "RainProb": 85.03480011,
+        "WindSpeed": 23.90141137
+    },
+    {
+        "Task_Id": 13,
+        "Predecessor": 10,
+        "Successor": [
+            0
+        ],
+        "Duration": 21,
+        "Trade": 2,
+        "Progress": 49,
+        "WorkerScore": 87,
+        "Temperature": 22.30586226,
+        "RainProb": 21.19940547,
+        "WindSpeed": 22.0772135
+    },
+    {
+        "Task_Id": 14,
+        "Predecessor": 11,
+        "Successor": [
+            15
+        ],
+        "Duration": 24,
+        "Trade": 4,
+        "Progress": 5,
+        "WorkerScore": 22,
+        "Temperature": 35.01872804,
+        "RainProb": 65.73534822,
+        "WindSpeed": 15.62203226
+    },
+    {
+        "Task_Id": 15,
+        "Predecessor": [
+            12,
+            14
+        ],
+        "Successor": [
+            0
+        ],
+        "Duration": 17,
+        "Trade": 30,
+        "Progress": 58,
+        "WorkerScore": 14,
+        "Temperature": 43.83546633,
+        "RainProb": 47.22818042,
+        "WindSpeed": 16.47303044
+    }
+]

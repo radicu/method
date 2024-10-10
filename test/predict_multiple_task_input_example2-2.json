@@ -1,0 +1,223 @@
+{
+    "tasks": [
+        {   "Task_Id": 1,
+            "Duration": 22,
+            "Trade": 2,
+            "Progress": 50,
+            "WorkerScore": 2,
+            "Temperature": 33.378842403,
+            "RainProb": 97.8186734029,
+            "WindSpeed": 16.6802189579
+        },
+        {
+            "Task_Id": 2,
+            "Duration": 2,
+            "Trade": 6,
+            "Progress": 10,
+            "WorkerScore": 23,
+            "Temperature": 49.0733569547,
+            "RainProb": 98.3679541599,
+            "WindSpeed": 17.9268059266
+        },
+        {
+            "Task_Id": 3,
+            "Duration": 21,
+            "Trade": 7,
+            "Progress": 2,
+            "WorkerScore": 90,
+            "Temperature": 24.9151764433,
+            "RainProb": 11.4095730426,
+            "WindSpeed": 24.8462932897
+        },
+        {
+            "Task_Id": 4,
+            "Duration": 13,
+            "Trade": 13,
+            "Progress": 73,
+            "WorkerScore": 82,
+            "Temperature": 45.4621318719,
+            "RainProb": 21.3411684898,
+            "WindSpeed": 24.8182906089
+        },
+        {
+            "Task_Id": 5,
+            "Duration": 22,
+            "Trade": 16,
+            "Progress": 87,
+            "WorkerScore": 60,
+            "Temperature": 43.4497044104,
+            "RainProb": 26.8169260909,
+            "WindSpeed": 15.0623402273
+        },
+        {   
+            "Task_Id": 6,
+            "Duration": 17,
+            "Trade": 10,
+            "Progress": 53,
+            "WorkerScore": 100,
+            "Temperature": 24.8008695871,
+            "RainProb": 40.5490295235,
+            "WindSpeed": 22.4580899012
+        },
+        {
+            "Task_Id": 7,
+            "Duration": 15,
+            "Trade": 26,
+            "Progress": 21,
+            "WorkerScore": 76,
+            "Temperature": 20.1279847688,
+            "RainProb": 60.8006374304,
+            "WindSpeed": 15.6543959833
+        },
+        {
+            "Task_Id": 8,
+            "Duration": 16,
+            "Trade": 16,
+            "Progress": 15,
+            "WorkerScore": 85,
+            "Temperature": 37.4223447503,
+            "RainProb": 24.5930203504,
+            "WindSpeed": 16.3604647646
+        },
+        {
+            "Task_Id": 9,
+            "Duration": 7,
+            "Trade": 3,
+            "Progress": 70,
+            "WorkerScore": 31,
+            "Temperature": 26.419233108,
+            "RainProb": 25.8882936535,
+            "WindSpeed": 22.9476739553
+        },
+        {
+            "Task_Id": 10,
+            "Duration": 5,
+            "Trade": 14,
+            "Progress": 88,
+            "WorkerScore": 60,
+            "Temperature": 23.166239586,
+            "RainProb": 26.8851669298,
+            "WindSpeed": 15.5388739065
+        },
+        {
+            "Task_Id": 11,
+            "Duration": 25,
+            "Trade": 22,
+            "Progress": 45,
+            "WorkerScore": 35,
+            "Temperature": 31.1060619991,
+            "RainProb": 84.2100780459,
+            "WindSpeed": 16.0207612892
+        },
+        {
+            "Task_Id": 12,
+            "Duration": 21,
+            "Trade": 11,
+            "Progress": 63,
+            "WorkerScore": 90,
+            "Temperature": 21.4818210344,
+            "RainProb": 38.0811202086,
+            "WindSpeed": 19.2672596765
+        },
+        {
+            "Task_Id": 13,
+            "Duration": 27,
+            "Trade": 19,
+            "Progress": 36,
+            "WorkerScore": 66,
+            "Temperature": 49.0922959406,
+            "RainProb": 68.0817689453,
+            "WindSpeed": 16.8707236541
+        },
+        {
+            "Task_Id": 14,
+            "Duration": 16,
+            "Trade": 6,
+            "Progress": 72,
+            "WorkerScore": 5,
+            "Temperature": 28.6398384607,
+            "RainProb": 88.9501678324,
+            "WindSpeed": 24.8738402064
+        },
+        {
+            "Task_Id": 15,
+            "Duration": 24,
+            "Trade": 13,
+            "Progress": 29,
+            "WorkerScore": 87,
+            "Temperature": 21.132803098,
+            "RainProb": 6.5711004506,
+            "WindSpeed": 18.4303939221
+        },
+        {
+            "Task_Id": 16,
+            "Duration": 0,
+            "Trade": 6,
+            "Progress": 55,
+            "WorkerScore": 58,
+            "Temperature": 32.8338316263,
+            "RainProb": 94.1587704674,
+            "WindSpeed": 21.8265772974
+        },
+        {
+            "Task_Id": 17,
+            "Duration": 8,
+            "Trade": 27,
+            "Progress": 58,
+            "WorkerScore": 47,
+            "Temperature": 39.1716558747,
+            "RainProb": 3.6250952632,
+            "WindSpeed": 23.3237650977
+        },
+        {
+            "Task_Id": 18,
+            "Duration": 22,
+            "Trade": 35,
+            "Progress": 59,
+            "WorkerScore": 97,
+            "Temperature": 45.2855983636,
+            "RainProb": 5.3604146681,
+            "WindSpeed": 16.6847805092
+        },
+        {
+            "Task_Id": 19,
+            "Duration": 25,
+            "Trade": 30,
+            "Progress": 65,
+            "WorkerScore": 84,
+            "Temperature": 47.0932580433,
+            "RainProb": 31.2917044295,
+            "WindSpeed": 23.3686688775
+        },
+        {
+            "Task_Id": 20,
+            "Duration": 0,
+            "Trade": 12,
+            "Progress": 51,
+            "WorkerScore": 36,
+            "Temperature": 37.0723606096,
+            "RainProb": 52.6769372738,
+            "WindSpeed": 24.3638581309
+        },
+        {
+            "Task_Id": 11,
+            "Duration": 30,
+            "Trade": 6,
+            "Progress": 36,
+            "WorkerScore": 9,
+            "Temperature": 23.8645150462,
+            "RainProb": 4.7728596945,
+            "WindSpeed": 16.5698129012
+        },
+        {
+            "Task_Id": 12,
+            "Duration": 18,
+            "Trade": 8,
+            "Progress": 97,
+            "WorkerScore": 82,
+            "Temperature": 36.1110675182,
+            "RainProb": 81.7664583322,
+            "WindSpeed": 23.081855991
+        }
+    ]
+}

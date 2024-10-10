@@ -1,4 +1,4 @@
-﻿Id,Predecessor,Successor,Duration,Trade,Progress,WorkerScore,Temperature,RainProb,WindSpeed
+﻿Task_Id,Predecessor,Successor,Duration,Trade,Progress,WorkerScore,Temperature,RainProb,WindSpeed
 1,0,"2,3",11,26,87,16,22.32948004,95.67998155,20.78298399
 2,1,4,1,28,58,18,32.22629093,50.04011457,16.4696271
 3,1,5,23,5,66,25,32.21319467,43.2729136,23.1112377
