@@ -99,6 +99,7 @@ For permission and transfer access to the GitHub repository, contact: fadhilumar
 - Please create virtual environment first, please use **Python 3.12++** (because i trained the model using packages with versions for Python3.12++)
 - Copy **endpoint2.py**, **utility.py**, **Dockerfile** (you can modify this fle however you want), **requirements_env.txt** , **data_env** folder & **model** folder to your virtual environment folder
 - We need **background_data.csv** file for deep learning prediction, that data is inside **data_env** and **data/New_Dummy** folder (both same data, i just moved it from data/New_Dummy to data_env folder)
+- We also need **predict_project_delay_input_example.json** for swagger API documentation, so copy this file to to env folder /data
 - **model** folder consists of our pre-trained prediction models
 - Install python dependencies from **requirements_env.txt** inside your vitual environment
 - Run Docker build to create the image to be deployed
